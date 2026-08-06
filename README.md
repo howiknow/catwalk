@@ -1,4 +1,4 @@
-# CatWalk
+# 예나캣 (CatWalk)
 
 고양이가 화면을 돌아다니는 macOS 데스크톱 펫. 메뉴바에서 동작하고 Dock 아이콘은 없습니다.
 
@@ -6,10 +6,10 @@
 
 ## 설치
 
-1. [최신 릴리스](https://github.com/howiknow/catwalk/releases/latest)에서 `CatWalk-x.y.z.zip` 을 받습니다.
-2. 압축을 풀고 `CatWalk.app` 을 **응용 프로그램** 폴더로 옮깁니다.
+1. [최신 릴리스](https://github.com/howiknow/catwalk/releases/latest)에서 `예나캣-x.y.z.zip` 을 받습니다.
+2. 압축을 풀고 `예나캣.app` 을 **응용 프로그램** 폴더로 옮깁니다.
 3. 처음 열 때 "확인되지 않은 개발자" 경고가 뜹니다. Apple 유료 개발자 계정으로 공증(notarize)하지 않아서 그렇습니다.
-   **시스템 설정 → 개인정보 보호 및 보안** 으로 가서 아래쪽의 `"CatWalk"을(를) 열도록 허용` 을 누르면 됩니다. 이 과정은 처음 한 번만 필요합니다.
+   **시스템 설정 → 개인정보 보호 및 보안** 으로 가서 아래쪽의 `"예나캣"을(를) 열도록 허용` 을 누르면 됩니다. 이 과정은 처음 한 번만 필요합니다.
 
 설치되면 메뉴바에 🐱 아이콘이 생깁니다.
 
@@ -46,7 +46,7 @@
 git clone https://github.com/howiknow/catwalk.git
 cd catwalk
 ./build.sh
-open dist/CatWalk.app
+open dist/예나캣.app
 ```
 
 Swift 5.9+ 와 macOS 13+ 가 필요합니다.

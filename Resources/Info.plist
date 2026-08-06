@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>CatWalk</string>
+    <string>예나캣</string>
     <key>CFBundleDisplayName</key>
-    <string>CatWalk</string>
+    <string>예나캣</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>ko</string>
     <key>CFBundleIdentifier</key>
     <string>com.axz.catwalk</string>
     <key>CFBundleExecutable</key>

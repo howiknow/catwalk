@@ -8,7 +8,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 VERSION="${1:-$(cat VERSION 2>/dev/null || echo 0.0.0)}"
-APP="dist/CatWalk.app"
+APP="dist/예나캣.app"
 # Universal, so the app also runs on Intel Macs. This path is where SPM puts the
 # merged binary when more than one --arch is given.
 PRODUCTS=".build/apple/Products/Release"
@@ -19,6 +19,10 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
 cp "$PRODUCTS/CatWalk" "$APP/Contents/MacOS/CatWalk"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
+
+# Declaring these localizations is what makes macOS hand Sparkle its Korean
+# strings; without an ko.lproj the bundle resolves to English.
+cp -R Resources/ko.lproj Resources/en.lproj "$APP/Contents/Resources/"
 
 # Sparkle ships as a framework with a helper app and XPC services inside it.
 cp -R "$PRODUCTS/Sparkle.framework" "$APP/Contents/Frameworks/Sparkle.framework"

@@ -21,9 +21,9 @@ echo "$VERSION" > VERSION
 ./build.sh "$VERSION"
 
 mkdir -p releases
-ZIP="releases/CatWalk-$VERSION.zip"
+ZIP="releases/예나캣-$VERSION.zip"
 rm -f "$ZIP"
-ditto -c -k --sequesterRsrc --keepParent dist/CatWalk.app "$ZIP"
+ditto -c -k --sequesterRsrc --keepParent dist/예나캣.app "$ZIP"
 
 # Signs every zip in the folder with the key from the keychain and rewrites appcast.xml.
 "$TOOLS/generate_appcast" --download-url-prefix "$PREFIX" releases/

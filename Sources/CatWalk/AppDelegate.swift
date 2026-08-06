@@ -44,7 +44,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func buildStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        if let icon = NSImage(systemSymbolName: "cat", accessibilityDescription: "CatWalk") {
+        if let icon = NSImage(systemSymbolName: "cat", accessibilityDescription: "예나캣") {
             statusItem.button?.image = icon
         } else {
             statusItem.button?.title = "🐱"
