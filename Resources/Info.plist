@@ -24,6 +24,10 @@
     <true/>
     <key>NSHighResolutionCapable</key>
     <true/>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+    <key>CFBundleIconName</key>
+    <string>AppIcon</string>
 
     <!-- Sparkle: where the update feed lives and the key that signs releases. -->
     <key>SUFeedURL</key>

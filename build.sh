@@ -23,6 +23,9 @@ cp Resources/Info.plist "$APP/Contents/Info.plist"
 # Declaring these localizations is what makes macOS hand Sparkle its Korean
 # strings; without an ko.lproj the bundle resolves to English.
 cp -R Resources/ko.lproj Resources/en.lproj "$APP/Contents/Resources/"
+if [ -f Resources/AppIcon.icns ]; then
+    cp Resources/AppIcon.icns "$APP/Contents/Resources/"
+fi
 
 # Sparkle ships as a framework with a helper app and XPC services inside it.
 cp -R "$PRODUCTS/Sparkle.framework" "$APP/Contents/Frameworks/Sparkle.framework"
