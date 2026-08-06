@@ -24,7 +24,7 @@
 | 사진 교체·삭제 | 고양이 **우클릭** |
 | 고양이 추가 | 메뉴바 🐱 → 고양이 추가 |
 
-고양이는 화면 바닥을 걷고, 창 위에 올라타고, 화면 가장자리를 타고 올라가 천장에 매달립니다. 가만히 두면 잠들기도 합니다.
+고양이는 화면 바닥을 걷고, 창 위에 올라타고, 화면 가장자리를 타고 올라가 천장에 매달립니다. 가만히 두면 잠들기도 하고, 가끔 말풍선으로 한마디씩 겁니다.
 
 ## 내 사진 넣기
 
@@ -34,7 +34,13 @@
 ~/Library/Application Support/CatWalk/cats
 ```
 
-배경이 투명한 이미지를 넣으면 네모 없이 모양 그대로 돌아다닙니다. 기본 고양이는 [TheCatAPI](https://thecatapi.com) 에서 받아옵니다.
+배경이 투명한 이미지를 넣으면 네모 없이 모양 그대로 돌아다닙니다. 기본으로 들어있는 고양이들은 macOS Vision 으로 배경을 지워둔 것입니다 — 직접 받은 사진도 아래 한 줄로 같은 처리를 할 수 있습니다.
+
+```bash
+swift Tools/RemoveBackground.swift ~/Library/Application\ Support/CatWalk/cats /tmp/cut
+cp /tmp/cut/*.png ~/Library/Application\ Support/CatWalk/cats/
+```
+ 기본 고양이는 [TheCatAPI](https://thecatapi.com) 에서 받아옵니다.
 
 ## 업데이트
 
