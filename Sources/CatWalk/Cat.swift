@@ -466,7 +466,10 @@ final class Cat: NSObject {
         velocity = .zero
         keepOnScreen()
         applyToWindow()
-        speak(CatLines.random(from: CatLines.pinned))
+        // Only now and then: speaking on every single drop gets repetitive fast.
+        if Double.random(in: 0..<1) < 0.3 {
+            speak(CatLines.random(from: CatLines.pinned))
+        }
     }
 
     /// A pinned cat never falls, so a drop past the edge would strand it out of reach.

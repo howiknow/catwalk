@@ -19,6 +19,8 @@ enum CatLines {
 
     static let pinned = [
         "여기 좋다", "자리 잡았다", "여기서 살래", "안 움직일 거야",
+        "명당이네", "여기 찜", "딱 좋아", "여기 있을게",
+        "고마워", "안녕", "응?", "뭐야",
     ]
 
     static func random(from lines: [String]) -> String {

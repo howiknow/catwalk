@@ -21,7 +21,9 @@ echo "$VERSION" > VERSION
 ./build.sh "$VERSION"
 
 mkdir -p releases
-ZIP="releases/예나캣-$VERSION.zip"
+# ASCII only: GitHub serves Korean paths in NFC while macOS stores NFD,
+# which made the appcast download URL 404.
+ZIP="releases/YenaCat-$VERSION.zip"
 rm -f "$ZIP"
 ditto -c -k --sequesterRsrc --keepParent dist/예나캣.app "$ZIP"
 
