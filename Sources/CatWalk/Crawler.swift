@@ -61,8 +61,14 @@ enum CatCrawler {
             URLSession.shared.dataTask(with: source) { data, _, _ in
                 defer { group.leave() }
                 guard let data, !data.isEmpty else { return }
-                let destination = library.directory.appendingPathComponent("\(entry.id).gif")
-                guard (try? data.write(to: destination)) != nil else { return }
+
+                // Cut the cat out so it walks around without a rectangle behind
+                // it. If Vision finds no subject, keep the photo as it came.
+                let cutout = BackgroundRemover.cutout(from: data)
+                let destination = library.directory.appendingPathComponent(
+                    "\(entry.id).\(cutout != nil ? "png" : "gif")"
+                )
+                guard (try? (cutout ?? data).write(to: destination)) != nil else { return }
                 lock.lock()
                 saved += 1
                 lock.unlock()
