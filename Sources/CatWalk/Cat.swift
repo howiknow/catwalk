@@ -37,6 +37,9 @@ final class Cat: NSObject {
     private var intendsToClimb = false
 
     private var dragOffset = CGSize.zero
+    private var dragStart = CGPoint.zero
+    private var dragMoved = false
+    private var stateBeforeDrag = CatState.idle
 
     private let bubble = SpeechBubble()
     private var timeUntilSpeaking = Double.random(in: 4...18)
@@ -113,7 +116,7 @@ final class Cat: NSObject {
             timeUntilSpeaking -= dt
             // A sleeping cat has its 💤 already; let it be.
             if timeUntilSpeaking <= 0, state != .sleeping, state != .dragging {
-                speak(CatLines.random(from: CatLines.idle))
+                speak(CatLines.idleLine())
             }
         }
         bubble.reposition(above: window.frame, on: screen)
@@ -448,6 +451,9 @@ final class Cat: NSObject {
     // MARK: - Dragging
 
     private func beginDrag() {
+        stateBeforeDrag = (state == .dragging) ? .idle : state
+        dragStart = NSEvent.mouseLocation
+        dragMoved = false
         state = .dragging
         velocity = .zero
         window.catView.setAsleep(false)
@@ -456,14 +462,21 @@ final class Cat: NSObject {
     }
 
     private func dragTo(_ mouse: NSPoint) {
+        if hypot(mouse.x - dragStart.x, mouse.y - dragStart.y) > 3 { dragMoved = true }
         position = CGPoint(x: mouse.x - dragOffset.width, y: mouse.y - dragOffset.height)
         applyToWindow()
     }
 
-    /// Dropping a cat parks it exactly where it was left. Double-click to release it.
+    /// A drag parks the cat where it was dropped; a plain click just pets it.
     private func endDrag() {
-        state = .pinned
         velocity = .zero
+        guard dragMoved else {
+            // Clicking to hear a line should not freeze the cat in place.
+            state = stateBeforeDrag
+            speak(CatLines.random(from: CatLines.caring))
+            return
+        }
+        state = .pinned
         keepOnScreen()
         applyToWindow()
         // Only now and then: speaking on every single drop gets repetitive fast.
