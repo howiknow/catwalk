@@ -3,6 +3,14 @@
     <channel>
         <title>예나캣</title>
         <item>
+            <title>1.0.4</title>
+            <pubDate>Thu, 06 Aug 2026 13:50:29 +0900</pubDate>
+            <sparkle:version>1.0.4</sparkle:version>
+            <sparkle:shortVersionString>1.0.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://raw.githubusercontent.com/howiknow/catwalk/main/releases/YenaCat-1.0.4.zip" length="2504613" type="application/octet-stream" sparkle:edSignature="ZjaNbSKqdIcaVxtiqCxlRJdSWXQjzP4d2EPbFj8RfqMACu+yzC6rocw7da5Hjhm3SveOtmHelnrbv3GhrbY9Bg=="/>
+        </item>
+        <item>
             <title>1.0.3</title>
             <pubDate>Thu, 06 Aug 2026 13:46:34 +0900</pubDate>
             <sparkle:version>1.0.3</sparkle:version>
