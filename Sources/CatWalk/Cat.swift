@@ -38,6 +38,10 @@ final class Cat: NSObject {
 
     private var dragOffset = CGSize.zero
 
+    private let bubble = SpeechBubble()
+    private var timeUntilSpeaking = Double.random(in: 4...18)
+    private var speechRemaining = 0.0
+
     private let gravity: CGFloat = -1900
     private let walkSpeed: CGFloat
     private let runSpeed: CGFloat = 210
@@ -84,8 +88,35 @@ final class Cat: NSObject {
     }
 
     func remove() {
+        bubble.close()
         window.orderOut(nil)
         window.close()
+    }
+
+    // MARK: - Talking
+
+    /// Says something now, for a few seconds.
+    func speak(_ line: String) {
+        bubble.show(line)
+        speechRemaining = Double.random(in: 3.0...4.5)
+        bubble.reposition(above: window.frame, on: screen)
+    }
+
+    private func updateSpeech(dt: Double, screen: NSScreen) {
+        if speechRemaining > 0 {
+            speechRemaining -= dt
+            if speechRemaining <= 0 {
+                bubble.hide()
+                timeUntilSpeaking = Double.random(in: 20...60)
+            }
+        } else {
+            timeUntilSpeaking -= dt
+            // A sleeping cat has its 💤 already; let it be.
+            if timeUntilSpeaking <= 0, state != .sleeping, state != .dragging {
+                speak(CatLines.random(from: CatLines.idle))
+            }
+        }
+        bubble.reposition(above: window.frame, on: screen)
     }
 
     var isPinned: Bool { state == .pinned }
@@ -188,6 +219,8 @@ final class Cat: NSObject {
         // Driven from the tick rather than a tracking area, because the cat walks out
         // from under a stationary pointer and tracking areas miss that.
         window.catView.setArrowsVisible(state != .dragging && window.frame.contains(NSEvent.mouseLocation))
+        // Ahead of the switch below, so a pinned cat still chats.
+        updateSpeech(dt: dt, screen: screen)
 
         switch state {
         case .dragging, .pinned:
@@ -433,6 +466,7 @@ final class Cat: NSObject {
         velocity = .zero
         keepOnScreen()
         applyToWindow()
+        speak(CatLines.random(from: CatLines.pinned))
     }
 
     /// A pinned cat never falls, so a drop past the edge would strand it out of reach.
