@@ -3,6 +3,14 @@
     <channel>
         <title>CatWalk</title>
         <item>
+            <title>1.0.1</title>
+            <pubDate>Thu, 06 Aug 2026 11:34:05 +0900</pubDate>
+            <sparkle:version>1.0.1</sparkle:version>
+            <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://raw.githubusercontent.com/howiknow/catwalk/main/releases/%E1%84%8B%E1%85%A8%E1%84%82%E1%85%A1%E1%84%8F%E1%85%A2%E1%86%BA-1.0.1.zip" length="2485318" type="application/octet-stream" sparkle:edSignature="XSByKi7kr38bZsMMrE3lsoecje5ZzLcLPAIJ80BbBXDJJUW109mML+8GhpnTBjtEaQ3smPYsIiMTwHkIBxjeDw=="/>
+        </item>
+        <item>
             <title>1.0.0</title>
             <pubDate>Thu, 06 Aug 2026 11:00:09 +0900</pubDate>
             <sparkle:version>1.0.0</sparkle:version>
