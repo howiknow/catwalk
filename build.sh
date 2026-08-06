@@ -9,17 +9,19 @@ cd "$(dirname "$0")"
 
 VERSION="${1:-$(cat VERSION 2>/dev/null || echo 0.0.0)}"
 APP="dist/CatWalk.app"
-FRAMEWORK=".build/release/Sparkle.framework"
+# Universal, so the app also runs on Intel Macs. This path is where SPM puts the
+# merged binary when more than one --arch is given.
+PRODUCTS=".build/apple/Products/Release"
 
-swift build -c release
+swift build -c release --arch arm64 --arch x86_64
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
-cp .build/release/CatWalk "$APP/Contents/MacOS/CatWalk"
+cp "$PRODUCTS/CatWalk" "$APP/Contents/MacOS/CatWalk"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
 
 # Sparkle ships as a framework with a helper app and XPC services inside it.
-cp -R "$FRAMEWORK" "$APP/Contents/Frameworks/Sparkle.framework"
+cp -R "$PRODUCTS/Sparkle.framework" "$APP/Contents/Frameworks/Sparkle.framework"
 
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$APP/Contents/Info.plist"
