@@ -43,9 +43,6 @@ final class CatView: NSView {
 
         spriteLayer.contentsGravity = .resizeAspect
         spriteLayer.magnificationFilter = .trilinear
-        // The GIFs are opaque rectangles, so soften the edge.
-        spriteLayer.cornerRadius = 10
-        spriteLayer.masksToBounds = true
         layer?.addSublayer(spriteLayer)
 
         sleepLayer.string = "💤"
@@ -221,7 +218,9 @@ final class CatWindow: NSPanel {
         )
         isOpaque = false
         backgroundColor = .clear
-        hasShadow = true
+        // The sprites are alpha cut-outs now: a window shadow would trace their
+        // outline and go stale on every animation frame.
+        hasShadow = false
         level = .floating
         isFloatingPanel = true
         becomesKeyOnlyIfNeeded = true

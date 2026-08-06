@@ -29,15 +29,24 @@ struct GIFAnimation {
         )
     }
 
+    /// Frame duration for either a GIF or an APNG, whose timings live in
+    /// different property dictionaries.
     private static func delay(of source: CGImageSource, at index: Int) -> Double {
-        guard let props = CGImageSourceCopyPropertiesAtIndex(source, index, nil) as? [CFString: Any],
-              let gif = props[kCGImagePropertyGIFDictionary] as? [CFString: Any]
+        guard let props = CGImageSourceCopyPropertiesAtIndex(source, index, nil) as? [CFString: Any]
         else { return 0.1 }
-        let raw = (gif[kCGImagePropertyGIFUnclampedDelayTime] as? Double)
-            ?? (gif[kCGImagePropertyGIFDelayTime] as? Double)
-            ?? 0.1
+
+        var raw: Double?
+        if let gif = props[kCGImagePropertyGIFDictionary] as? [CFString: Any] {
+            raw = (gif[kCGImagePropertyGIFUnclampedDelayTime] as? Double)
+                ?? (gif[kCGImagePropertyGIFDelayTime] as? Double)
+        } else if let png = props[kCGImagePropertyPNGDictionary] as? [CFString: Any] {
+            raw = (png[kCGImagePropertyAPNGUnclampedDelayTime] as? Double)
+                ?? (png[kCGImagePropertyAPNGDelayTime] as? Double)
+        }
+
         // Browsers treat sub-20ms delays as "as fast as possible"; match that.
-        return raw < 0.02 ? 0.1 : raw
+        guard let raw, raw >= 0.02 else { return 0.1 }
+        return raw
     }
 
     /// Layer animation that cycles the frames forever.
