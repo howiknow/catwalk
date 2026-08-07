@@ -24,6 +24,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        CustomLines.ensureFileExists()
         surfaces.ridesWindows = rideWindows
         buildStatusItem()
         startTicking()
@@ -62,6 +63,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(.separator())
         menu.addItem(chaseItem)
         menu.addItem(rideItem)
+        menu.addItem(.separator())
+        menu.addItem(withTitle: "대사 편집…", action: #selector(editLines), keyEquivalent: "")
         menu.addItem(.separator())
         menu.addItem(withTitle: "고양이 GIF 더 받기…", action: #selector(downloadMore), keyEquivalent: "")
         menu.addItem(withTitle: "GIF 폴더 열기", action: #selector(openFolder), keyEquivalent: "")
@@ -161,6 +164,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func openFolder() {
         CatLibrary.shared.revealInFinder()
+    }
+
+    @objc private func editLines() {
+        LineEditor.shared.show()
     }
 
     @objc private func quit() {
